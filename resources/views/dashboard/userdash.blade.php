@@ -45,14 +45,10 @@
     <h1>Dashboard</h1>
     <a href="mis_ordenes.html" class="btn">Mis Órdenes</a>
     <a href="mi_perfil.html" class="btn">Mi Perfil</a>
-    <button class="btn" onclick="desconectar()">Desconectarse</button>
+    <form method="POST" action="{{ route('logout') }}" id="logoutButton">
+      @csrf
+        <a class="nav-link active"><input type="submit" class="btn btn-danger btn-sm" id="logoutButton" value="Desconectarse"></a>
+    </form>
   </div>
-
-  <script>
-    function desconectar() {
-      // Aquí puedes agregar la lógica para desconectar al usuario
-      alert("Desconectando...");
-    }
-  </script>
 </body>
 </html>
