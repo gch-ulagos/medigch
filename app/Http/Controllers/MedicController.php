@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class MedicController extends Controller
 {
     public function index()
     {
@@ -14,7 +14,7 @@ class UserController extends Controller
         }elseif(Auth::user()->hasRole('admin')){
             return view('dashboard.admindash');
             
-        }elseif(Auth::user()->hasRole('smedic')){
+        }elseif(Auth::user()->hasRole('medic')){
             return view('dashboard.medicdash');
         }
     }
