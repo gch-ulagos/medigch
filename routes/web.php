@@ -23,5 +23,16 @@ Route::middleware('auth')->group(function () {
 });
 
 
+#Rutas del admin
+Route::middleware('auth')->group(function(){
+    Route::get('/admin/crear_personal',[AdminController::class, 'crear_personal'])->name('/admin/crear_personal');
+    Route::post( '/admin/crear_personal',[AdminController::class, 'store'])->name('/admin/crear_personal');
+});
+
+
+
+
+
+
 
 require __DIR__.'/auth.php';

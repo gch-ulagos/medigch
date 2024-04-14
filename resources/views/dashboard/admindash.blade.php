@@ -9,7 +9,7 @@
     <div class="container">
         <h1>Dashboard</h1>
         <a href="#" class="btn">Registro de Órdenes</a>
-        <a href="#" class="btn">Crear Personal</a>
+        <a href="/admin/crear_personal" class="btn">Crear Personal</a>
         <a href="#" class="btn">Editar Usuarios</a>
         <form method="POST" action="{{ route('logout') }}" id="logoutButton">
             @csrf
