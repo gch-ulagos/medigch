@@ -51,16 +51,6 @@
 
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
         </div>
-        <div class="mt-4">
-            <label for="Roles" class="block mt-1 w-full">Rol del usuario</label>
-                <select name="Roles" id="Roles">
-                    <option value="admin">Admin</option>
-                    <option value="medic">Médico</option>
-                    <option value="user">Usuario</option>
-                </select>
-        </div>
-
-
 
         
         <div class="flex items-center justify-end mt-4">

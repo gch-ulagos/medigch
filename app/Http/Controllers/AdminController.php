@@ -53,7 +53,7 @@ class AdminController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-        ])->addRole($request->Roles);
+        ])->addRole('medic');
 
         event(new Registered($user));
 
