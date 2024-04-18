@@ -1,54 +1,43 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+  </style>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Médico</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
-        .container {
-            max-width: 800px;
-            margin: 50px auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        h1 {
-            text-align: center;
-        }
-        .btn {
-            display: block;
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: none;
-            border-radius: 5px;
-            background-color: #007bff;
-            color: #fff;
-            text-decoration: none;
-            text-align: center;
-            cursor: pointer;
-        }
-        .btn:hover {
-            background-color: #0056b3;
-        }
-    </style>
+    <title>MediGCH</title>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Dashboard - Médico</h1>
-        <a href="#" class="btn">Crear Orden</a>
-        <a href="#" class="btn">Ver Órdenes</a>
-        <form method="POST" action="{{ route('logout') }}" id="logoutButton">
-            @csrf
-              <a class="nav-link active"><input type="submit" class="btn btn-danger btn-sm" id="logoutButton" value="Desconectarse"></a>
-        </form>
-    </div>
+    <header>
+      <img src="images/MediGCH.png" alt="Logo">
+        <nav>
+            <ul>
+                <li><a href="#">Mi Perfil</a></li>
+                <form method="POST" action="{{ route('logout') }}" id="logoutButton">
+                  @csrf
+                    <a class="nav-link active"><input type="submit" class="btn btn-danger btn-sm" id="logoutButton" value="Desconectarse"></a>
+              </form>
+            </ul>
+        </nav>
+    </header>
+    <main>
+      <h1 id="welcome-user">Bienvenido, Médico</h1>
+      <img src="images/banner.png" alt="Banner">
+      <div class="container">
+        <section id="documents">
+            <h2>Órdenes</h2>
+            <p>Revisa tus órdeness</p>
+            <div class="frame-container">
+              <div class="frame">
+                <h3>Ingresar órden</h3>
+              </div>
+              <div class="frame">
+                <h3>Revisar historial de órdenes</h3>
+              </div>
+            </div>
+        </section>
+    </main>
 </body>
 </html>

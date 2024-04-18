@@ -8,7 +8,7 @@ use App\Http\Controllers\AdminController;
 
 Route::get('/', function () {
     return view('index');
-});
+})->name('index');
 
 Route::middleware('auth')->group(function(){
     Route::get('/dashboard',[DashboardController::class, 'index'])->name('dashboard');

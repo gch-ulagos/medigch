@@ -15,7 +15,6 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call(LaratrustSeeder::class);
-        // User::factory(10)->create();
 
         if (!Schema::hasTable('ordenes')) {
             Schema::create('ordenes', function ($table) {
@@ -27,12 +26,12 @@ class DatabaseSeeder extends Seeder
             });
         }
 
-        // Crear la tabla "examen" si no existe
+
         if (!Schema::hasTable('examen')) {
             Schema::create('examen', function ($table) {
                 $table->id();
                 $table->foreignId('order_id')->constrained('ordenes');
-                $table->string('archivo'); // Cambiar a tu tipo de dato específico para archivos
+                $table->string('archivo');
                 $table->timestamps();
             });
         }
