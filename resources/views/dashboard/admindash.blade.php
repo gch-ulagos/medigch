@@ -23,8 +23,10 @@
         </nav>
     </header>
     <main>
-      <h1 id="welcome-user">Bienvenido, Administrador</h1>
-      <img src="images/banner.png" alt="Banner">
+      <div class="banner">
+        <img src="images/banner.png" alt="banner image" class="banner-image">
+        <div class="banner-text">Bienvenido, usuario</div>
+      </div>
       <div class="container">
         <section id="documents">
             <h2>Gestión de Plataforma</h2>
@@ -42,5 +44,6 @@
             </div>
         </section>
     </main>
+  <footer class="main-footer"></footer>
 </body>
 </html>

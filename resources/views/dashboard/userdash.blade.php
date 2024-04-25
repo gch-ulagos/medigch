@@ -18,14 +18,16 @@
                 <li><a href="#">Mis Documentos</a></li>
                 <form method="POST" action="{{ route('logout') }}" id="logoutButton">
                   @csrf
-                    <a class="nav-link active"><input type="submit" class="btn btn-danger btn-sm" id="logoutButton" value="Desconectarse"></a>
+                    <a><input type="submit" class="custom-button" id="logoutButton" value="Desconectarse"></a>
               </form>
             </ul>
         </nav>
     </header>
     <main>
-      <h1 id="welcome-user">Bienvenido, Usuario</h1>
-      <img src="images/banner.png" alt="Banner">
+      <div class="banner">
+        <img src="images/banner.png" alt="banner image" class="banner-image">
+        <div class="banner-text">Bienvenido, usuario</div>
+      </div>
       <div class="container">
         <section id="documents">
             <h2>Mis Documentos</h2>
@@ -43,5 +45,6 @@
             </div>
         </section>
     </main>
+    <footer class="main-footer"></footer>
 </body>
 </html>
