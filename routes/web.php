@@ -22,6 +22,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-
+#Rutas del admin
+Route::middleware('auth')->group(function(){
+    Route::get('/admin/crear_personal',[AdminController::class, 'crear_personal'])->name('/admin/crear_personal');
+    Route::post('/admin/crear_personal',[AdminController::class, 'store'])->name('/admin/crear_personal');
+});
 
 require __DIR__.'/auth.php';
