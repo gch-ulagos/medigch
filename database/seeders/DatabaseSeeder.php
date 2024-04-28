@@ -35,11 +35,12 @@ class DatabaseSeeder extends Seeder
             });
         }
 
-        if (!Schema::hasTable('detalleOrden')) {
-            Schema::create('detalleOrden', function ($table) {
+        if (!Schema::hasTable('detalles')) {
+            Schema::create('detalles', function ($table) {
                 $table->bigIncrements('id');
                 $table->foreignId('order_id')->constrained('ordenes');
                 $table->string('detalle', 100);
+                $table->timestamps();
             });
         }    
     }
