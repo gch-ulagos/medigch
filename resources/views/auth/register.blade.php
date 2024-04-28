@@ -1,4 +1,5 @@
 <x-guest-layout>
+    <title>MediGCH</title>
     <form method="POST" action="{{ route('register') }}">
         @csrf
 
