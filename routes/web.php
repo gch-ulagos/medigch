@@ -14,6 +14,7 @@ Route::middleware('auth')->group(function(){
     Route::get('/dashboard',[DashboardController::class, 'index'])->name('dashboard');
     Route::get('/medic/panel',[MedicController::class, 'index'])->name('medic/panel');
     Route::get('/medic/panel',[MedicController::class, 'crear_orden'])->name('medic/panel/crear_orden');
+    Route::post('/medic/panel',[MedicController::class, 'store'])->name('medic/panel/crear_orden/store');
 
     Route::get('/admin/panel',[AdminController::class, 'index'])->name('admin/panel');
 });
@@ -27,7 +28,7 @@ Route::middleware('auth')->group(function () {
 #Rutas del admin
 Route::middleware('auth')->group(function(){
     Route::get('/admin/crear_personal',[AdminController::class, 'crear_personal'])->name('/admin/crear_personal');
-    Route::post('/admin/crear_personal',[AdminController::class, 'store'])->name('/admin/crear_personal');
+    Route::post('/admin/crear_personal',[AdminController::class, 'store'])->name('/admin/crear_personal/store');
 });
 
 require __DIR__.'/auth.php';

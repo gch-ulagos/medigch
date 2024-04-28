@@ -11,6 +11,8 @@ use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 use App\Models\User;
 use App\Http\Controllers\Controller;
+use App\Models\ordenes;
+
 class MedicController extends Controller
 {
     public function index()
@@ -37,5 +39,20 @@ class MedicController extends Controller
         }elseif(Auth::user()->hasRole('medic')){
             return view('medic_views.crear_ordenes');
         }
+    }
+
+    public function store(){
+        $ordennueva = new ordenes();
+
+        $ordennueva->Nombre = request('Nombre');
+        $ordennueva->Rut = request('Rut');
+        $ordennueva->Genero = request('Genero');
+        $ordennueva->Indicaciones_Medicas = request('Indicaciones');
+
+        $ordennueva->save();
+
+
+        return view('medic_views.crear_ordenes');
+
     }
 }
