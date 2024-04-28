@@ -18,10 +18,9 @@ class DatabaseSeeder extends Seeder
 
         if (!Schema::hasTable('ordenes')) {
             Schema::create('ordenes', function ($table) {
-                $table->id();
-                $table->foreignId('user_id')->constrained('users');
+                $table->bigIncrements('id');
+                $table->foreignId('patient_id')->constrained('users');
                 $table->foreignId('medic_id')->constrained('users');
-                $table->text('description');
                 $table->timestamps();
             });
         }
@@ -29,12 +28,20 @@ class DatabaseSeeder extends Seeder
 
         if (!Schema::hasTable('examen')) {
             Schema::create('examen', function ($table) {
-                $table->id();
+                $table->bigIncrements('id');
                 $table->foreignId('order_id')->constrained('ordenes');
                 $table->string('archivo');
                 $table->timestamps();
             });
         }
+
+        if (!Schema::hasTable('detalleOrden')) {
+            Schema::create('examen', function ($table) {
+                $table->bigIncrements('id');
+                $table->foreignId('order_id')->constrained('ordenes');
+                $table->string('detalle', 100);
+            });
+        }    
     }
 }
    
