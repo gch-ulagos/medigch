@@ -12,7 +12,7 @@
 </head>
 <body>
     <header>
-      <img src="{{ URL::asset('images/MediGCH.png') }}" alt="Logo">
+      <a href="/dashboard"><img src="{{ URL::asset('images/MediGCH.png') }}" alt="Logo"></a>
         <nav>
             <ul>
                 <li><a href="#">Mi Perfil</a></li>
