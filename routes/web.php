@@ -13,6 +13,8 @@ Route::get('/', function () {
 Route::middleware('auth')->group(function(){
     Route::get('/dashboard',[DashboardController::class, 'index'])->name('dashboard');
     Route::get('/medic/panel',[MedicController::class, 'index'])->name('medic/panel');
+    Route::get('/medic/panel',[MedicController::class, 'crear_orden'])->name('medic/panel/crear_orden');
+
     Route::get('/admin/panel',[AdminController::class, 'index'])->name('admin/panel');
 });
 
