@@ -36,7 +36,7 @@ class DatabaseSeeder extends Seeder
         }
 
         if (!Schema::hasTable('detalleOrden')) {
-            Schema::create('examen', function ($table) {
+            Schema::create('detalleOrden', function ($table) {
                 $table->bigIncrements('id');
                 $table->foreignId('order_id')->constrained('ordenes');
                 $table->string('detalle', 100);
