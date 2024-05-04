@@ -11,7 +11,7 @@ use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 use App\Models\User;
 use App\Http\Controllers\Controller;
-use App\Models\ordenes;
+use Illuminate\Support\Facades\DB;
 
 class MedicController extends Controller
 {
@@ -41,18 +41,34 @@ class MedicController extends Controller
         }
     }
 
-    public function store(){
-        $ordennueva = new ordenes();
+    public function store(Request $request){
+        //validacion de los datos del formulario
+        $request->validate([
+            'Rut' => 'required|string|max:255',
+            'detalle.*' => 'required|string|max:100',
+        ]);
 
-        $ordennueva->Nombre = request('Nombre');
-        $ordennueva->Rut = request('Rut');
-        $ordennueva->Genero = request('Genero');
-        $ordennueva->Indicaciones_Medicas = request('Indicaciones');
+        //obtener el id del usuario medico autenticado
+        $medic_id = Auth::id();
 
-        $ordennueva->save();
+        //insertar la orden medica
+        $orden_id = DB::table('ordenes')->insertGetId([
+            'patient_id' => $request->input('Rut'),
+            'medic_id' => $medic_id,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
 
+        //insertar los detalles
+        foreach ($request->input('detalle') as $detalle) {
+            DB::table('detalles')->insert([
+                'order_id' => $orden_id,
+                'detalle' => $detalle,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
 
-        return view('medic_views.crear_ordenes');
-
+        return view('dashboard.medicdash');
     }
 }
