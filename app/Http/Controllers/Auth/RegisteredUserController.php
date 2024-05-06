@@ -30,7 +30,16 @@ class RegisteredUserController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'id' => ['required', 'string', 'max:255', 'between:8,9'],
+            'id' => [
+                'required',
+                'string',
+                'max:255',
+                'between:8,9',
+                function ($attribute, $value, $fail) {
+                    if (!preg_match('/^[0-9]+$/', $value)) {
+                        $fail('El Rut solo puede contener números.');
+                    }
+                }],
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],

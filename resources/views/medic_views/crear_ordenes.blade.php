@@ -36,15 +36,17 @@
 
 <script>
     function validateForm() {
+      
       const rutInput = document.getElementById('Rut');
       const rutValue = rutInput.value;
 
         // se verifica si el tut tiene 9 caracteres
-      if (rutValue.length < 8 || rutValue.length > 9) {
-        alert("El Rut debe tener entre 8 y 9 caracteres");
-        return;
-      }
+        if (rutValue.length < 8 || rutValue.length > 9 || !rutValue.match(/^\d+$/)) {
+        alert("El Rut debe tener entre 8 y 9 caracteres y contener solo números");
+        return false;
+    }
       // si pasa todas las validaciones se envia el formulario
+      alert("Orden! Volviendo al dashboard.");
       document.querySelector('form').submit();
     }
 
@@ -90,10 +92,6 @@
             });
         }
     });
-
-    function alertaUsuario() {
-        alert("Orden! Volviendo al dashboard.");
-    }
 </script>
 
 @endsection

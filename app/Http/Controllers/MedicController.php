@@ -42,13 +42,6 @@ class MedicController extends Controller
     }
 
     public function store(Request $request){
-        $medico_id = Auth::id();
-        $ordenes = DB::table('ordenes')
-            ->where('medic_id', $medico_id)
-            ->orderBy('created_at', 'desc')
-            ->take(5)
-            ->get();
-
         //validacion de los datos del formulario
         $request->validate([
             'Rut' => 'required|string|between:8,9',
@@ -76,6 +69,6 @@ class MedicController extends Controller
             ]);
         }
 
-        return redirect()->route('dashboard');
+        return redirect(route('dashboard', absolute: false));
     }
 }
