@@ -147,7 +147,6 @@ main img {
 #display {
     margin: 50px;
     box-sizing: content-box;
-    background-color: #bdbdbd;
 }
 
 .container{
@@ -160,4 +159,3 @@ main img {
     
     justify-content: center;
   }
-

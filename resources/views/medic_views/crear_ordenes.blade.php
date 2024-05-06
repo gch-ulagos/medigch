@@ -8,7 +8,7 @@
             @csrf
             <!-- Rut del paciente-->
             <div class="mb-3 mt-3">
-                <x-input-label for="Rut" :value="__('Rut')" />
+                <x-input-label for="Rut" :value="__('RUT')" class="form-label" />
                 <x-text-input id="Rut" class="form-control" type="Rut" name="Rut" :value="old('Rut')"  />
                 <x-input-error :messages="$errors->get('Rut')" class="mt-2" />
             </div>
@@ -22,19 +22,18 @@
 
             <div id="detalles-container">
                 <div class="detalle">
-                    <input type="text" name="detalle[]" placeholder="Detalle de la orden">
-                    <button type="button" class="remove-btn" style="display: none;">Eliminar detalle</button>
+                    <label for="detail" class="form-label">Detalle de la orden</label>
+                    <input type="text" name="detalle[]" class="form-control">
+                    <button type="button" class="remove-btn btn btn-danger" style="display: none;">Eliminar detalle</button>
+                    <br>
+                    <button type="button" class="add-btn btn btn-primary">Agregar detalle</button>
                 </div>
             </div>
-            <button type="button" class="add-btn">Agregar más detalles</button>
-            <button type="submit">Guardar Orden</button>
-
-
-            <div class="flex items-center justify-end mt-3 mb-3">
-
-                <x-primary-button onclick="alertaUsuario()" class="btn btn-primary">
+            <br>
+            <div class="mb-3 mt-3">
+                <button onclick="alertaUsuario()" class="btn btn-success">
                     {{ __('Registrar') }}
-                </x-primary-button>
+                </button>
             </div>
             <br>
         </form>
@@ -51,8 +50,17 @@
         const newDetalle = document.createElement('div');
         newDetalle.classList.add('detalle');
         newDetalle.innerHTML = `
-          <input type="text" name="detalle[]" placeholder="Detalle de la orden">
-          <button type="button" class="remove-btn">Eliminar detalle</button>
+          <br>
+          <div class="container-fluid remove-btn">
+            <div class="row">
+              <div class="col-sm-9">
+                <input type="text" name="detalle[]" class="form-control extra-detail" placeholder="Detalle de la orden">
+              </div>
+              <div class="col-sm-3">
+                <button type="button" class="remove-btn btn btn-danger btn-sm"> [ X ] </button>
+              </div>
+            </div>
+          </div>
         `;
         detallesContainer.appendChild(newDetalle);
         checkButtons();
@@ -60,7 +68,7 @@
     
       detallesContainer.addEventListener('click', function (e) {
         if (e.target.classList.contains('remove-btn')) {
-          e.target.parentElement.remove();
+          e.target.closest('.detalle').remove();
           checkButtons();
         }
       });

@@ -1,0 +1,1 @@
+<a href="/dashboard"><img src="{{ URL::asset('images/MediGCH.png') }}" alt="Logo"></a>
