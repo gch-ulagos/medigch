@@ -3,12 +3,14 @@
     <form method="POST" action="{{ route('register') }}">
         @csrf
 
-        <!-- Name -->
+        <!-- Rut -->
         <div>
             <x-input-label for="id" :value="__('Rut')" />
             <x-text-input id="id" class="block mt-1 w-full" type="text" name="id" :value="old('id')" required autofocus autocomplete="id" />
             <x-input-error :messages="$errors->get('id')" class="mt-2" />
+            <p class="text-sm text-gray-500">Sin puntos y sin guión</p> <!-- Texto adicional -->
         </div>
+        
 
         <!-- Name -->
         <div>
