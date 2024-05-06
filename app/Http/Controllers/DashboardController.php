@@ -4,19 +4,26 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-        if(Auth::user()->hasRole('user')){
+    
+        if (Auth::user()->hasRole('user')) {
             return view('dashboard.userdash');
-
-        }elseif(Auth::user()->hasRole('admin')){
+        } elseif (Auth::user()->hasRole('admin')) {
             return view('dashboard.admindash');
-            
-        }elseif(Auth::user()->hasRole('medic')){
-            return view('dashboard.medicdash');
+        } elseif (Auth::user()->hasRole('medic')) {
+            $medico_id = Auth::id();
+            $ordenes = DB::table('ordenes')
+                ->where('medic_id', $medico_id)
+                ->orderBy('created_at', 'desc')
+                ->take(5)
+                ->get();
+
+            return view('dashboard.medicdash', compact('ordenes'));
         }
     }
 }

@@ -13,13 +13,14 @@ Route::get('/', function () {
 Route::middleware('auth')->group(function(){
     Route::get('/dashboard',[DashboardController::class, 'index'])->name('dashboard');
     Route::get('/medic/panel',[MedicController::class, 'index'])->name('medic/panel');
-    Route::get('/medic/panel',[MedicController::class, 'crear_orden'])->name('medic/panel/crear_orden');
-    Route::post('/medic/panel',[MedicController::class, 'store'])->name('medic/panel/crear_orden/store');
+    Route::get('/medic/panel/crear_orden',[MedicController::class, 'crear_orden'])->name('medic/panel/crear_orden');
+    Route::post('/medic/panel/crear_orden/store',[MedicController::class, 'store'])->name('medic/panel/crear_orden/store');
 
     Route::get('/admin/panel',[AdminController::class, 'index'])->name('admin/panel');
 });
 
 Route::middleware('auth')->group(function () {
+    Route::get('/user/panel',[UserController::class, 'index'])->name('user/panel');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
