@@ -69,6 +69,6 @@ class MedicController extends Controller
             ]);
         }
 
-        return view('dashboard.medicdash');
+        return view('medic_views.medicordenes');
     }
 }

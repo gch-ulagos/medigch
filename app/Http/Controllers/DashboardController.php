@@ -23,7 +23,7 @@ class DashboardController extends Controller
                 ->take(5)
                 ->get();
 
-            return view('dashboard.medicdash', compact('ordenes'));
+            return view('medic_views.medicordenes', compact('ordenes'));
         }
     }
 }
