@@ -12,6 +12,7 @@ use Illuminate\View\View;
 use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use App\Models\File;
 
 class MedicController extends Controller
 {
@@ -41,7 +42,7 @@ class MedicController extends Controller
         }
     }
 
-    public function store(Request $request){
+    public function ordenStore(Request $request){
         //validacion de los datos del formulario
         $request->validate([
             'Rut' => 'required|string|between:8,9',

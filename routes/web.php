@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MedicController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\filesController;
+
 
 Route::get('/', function () {
     return view('index');
@@ -14,7 +16,9 @@ Route::middleware('auth')->group(function(){
     Route::get('/dashboard',[DashboardController::class, 'index'])->name('dashboard');
     Route::get('/medic/panel',[MedicController::class, 'index'])->name('medic/panel');
     Route::get('/medic/panel/crear_orden',[MedicController::class, 'crear_orden'])->name('medic/panel/crear_orden');
-    Route::post('/medic/panel/crear_orden/store',[MedicController::class, 'store'])->name('medic/panel/crear_orden/store');
+    Route::post('/medic/panel/crear_orden/store',[MedicController::class, 'ordenStore'])->name('medic/panel/crear_orden/store');
+    Route::get('/medic/panel/adjuntar_doc',[filesController::class, 'adjuntar_doc'])->name('medic/panel/adjuntar_doc');
+    Route::post('/medic/panel/adjuntar_doc/store',[filesController::class, 'documentStore'])->name('medic/panel/adjuntar_doc/store');
 
     Route::get('/admin/panel',[AdminController::class, 'index'])->name('admin/panel');
 });

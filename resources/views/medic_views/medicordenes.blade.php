@@ -9,7 +9,7 @@
     </div>
 
     <div id="adjuntarDocumento" class="frame btn btn-primary">
-      <a href="/admin/crear_personal" class="button big">Manejar personal</a>
+      <a href="{{ route('medic/panel/adjuntar_doc') }}" class="button big">Adjuntar documentos</a>
     </div>
 
     <div id="verHistorial" class="frame btn btn-primary">

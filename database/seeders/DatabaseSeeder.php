@@ -26,8 +26,8 @@ class DatabaseSeeder extends Seeder
         }
 
 
-        if (!Schema::hasTable('examen')) {
-            Schema::create('examen', function ($table) {
+        if (!Schema::hasTable('examens')) {
+            Schema::create('examens', function ($table) {
                 $table->bigIncrements('id');
                 $table->foreignId('order_id')->constrained('ordenes');
                 $table->string('archivo');
