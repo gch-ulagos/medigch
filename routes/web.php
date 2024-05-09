@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MedicController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\filesController;
+
 
 Route::get('/', function () {
     return view('index');
@@ -31,4 +33,10 @@ Route::middleware('auth')->group(function(){
     Route::post('/admin/crear_personal',[AdminController::class, 'store'])->name('/admin/crear_personal/store');
 });
 
+
+#ruta prueba de archivos
+Route::get('subirarchivo',[filesController::class, 'crear_orden'])
+->name('/subirarchivo');
+Route::post('subirarchivo',[filesController::class, 'store'])
+->name('/subirarchivo/store');
 require __DIR__.'/auth.php';
