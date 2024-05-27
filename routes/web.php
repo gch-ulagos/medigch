@@ -34,6 +34,9 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth')->group(function(){
     Route::get('/admin/crear_personal',[AdminController::class, 'crear_personal'])->name('/admin/crear_personal');
     Route::post('/admin/crear_personal',[AdminController::class, 'store'])->name('/admin/crear_personal/store');
+    Route::get('/admin/modificar_orden',[AdminController::class, 'getOrdenes'])->name('/admin/modificar_ordenes');
+    Route::get('/api/ordenes/{id}', [AdminController::class, 'ordenInfo']);
+    Route::patch('/admin/orden/{id}/update', [AdminController::class, 'updateOrden'])->name('admin.modificar_ordenes.update');
 });
 
 require __DIR__.'/auth.php';

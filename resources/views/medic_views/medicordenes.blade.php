@@ -19,5 +19,5 @@
 @endsection
 
 @section('display')
-   @include('medic_views.ordenes_dash')
+   @include('layouts.ordenes_dash')
 @endsection

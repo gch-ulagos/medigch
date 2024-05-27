@@ -8,6 +8,8 @@ class UserController extends Controller
 {
     public function index()
     {
+        $ordenes = [];
+        
         if(Auth::user()->hasRole('user')){
             return view('dashboard.userdash');
 

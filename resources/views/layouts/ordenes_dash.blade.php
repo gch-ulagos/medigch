@@ -1,6 +1,3 @@
-@extends('dashboard.medicdash')
-
-@section('display')
 <div class="ordenes">
   <h2>Órdenes Médicas Recientes</h2>
 <div class="d-flex flex-column mt-3 mb-3 align-items-center">
@@ -15,15 +12,18 @@
         <button class="btn btn-primary" onclick="mostrarDetalles({{ $orden->id }})">Mostrar Detalles</button>
         <button class="btn btn-primary" onclick="mostrarDocumentos({{ $orden->id }})">Mostrar Documentos</button>
         <div id="detalles-{{ $orden->id }}" class="card-footer mb-3 mt-3" style="display: none;">
-            {{-- Aquí se mostrarán los detalles del paciente --}}
-            @php
-                $detalles = DB::table('detalles')->where('order_id', $orden->id)->get();
-            @endphp
+          @php
+          $detalles = DB::table('detalles')->where('order_id', $orden->id)->get();
+          @endphp
+          @if ($detalles->isNotEmpty())
             @foreach ($detalles as $detalle)
-                <p>- {{ $detalle->detalle }}</p>
+              <p>- {{ $detalle->detalle }}</p>
             @endforeach
+          @else
+            <p>No hay detalles asociados a esta orden.</p>
+          @endif
         </div>
-    </div>
+      </div>
     <div id="examens-{{ $orden->id }}" class="card-footer mb-3 mt-3" style="display: none;">
         {{-- Aquí se mostrarán los documentos de la orden --}}
         @php
@@ -58,5 +58,3 @@
       documentos.style.display = documentos.style.display === 'none' ? 'block' : 'none';
   }
 </script>
-
-@endsection

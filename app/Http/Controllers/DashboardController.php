@@ -12,7 +12,13 @@ class DashboardController extends Controller
     {
     
         if (Auth::user()->hasRole('user')) {
-            return view('dashboard.userdash');
+            $patient_id = Auth::id();
+            $ordenes = DB::table('ordenes')
+                ->where('patient_id', $patient_id)
+                ->orderBy('created_at', 'desc')
+                ->take(5)
+                ->get();
+            return view(('dashboard.userordenes'), compact('ordenes'));
         } elseif (Auth::user()->hasRole('admin')) {
             return view('dashboard.admindash');
         } elseif (Auth::user()->hasRole('medic')) {
