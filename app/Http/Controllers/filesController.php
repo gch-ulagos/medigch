@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\examen;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class filesController extends Controller
 {
@@ -55,5 +56,15 @@ class filesController extends Controller
     
         // Redirigir de vuelta al dashboard
         return redirect()->route('dashboard');
+    }
+
+    public function downloadFile(Request $request, $nombreArchivo)
+    {
+        // Ruta del archivo dentro de la carpeta 'storage/app/archivos'
+        $filePath = 'app/pdfs/' . $nombreArchivo;
+            // Obtén el nombre del archivo
+            
+        // Devuelve el archivo como una respuesta de descarga
+        return response()->download(storage_path($filePath), $nombreArchivo)->deleteFileAfterSend(false);
     }
 }

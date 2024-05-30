@@ -92,23 +92,28 @@ class AdminController extends Controller
     {
         $request->validate([
             'Rut' => 'required|string|between:8,9',
-            'detalle.*' => 'required|string|max:100'
+            'detalle.*' => 'string|max:100'
         ]);
-
+    
+        // Verificar si hay detalles presentes en la solicitud
+        if ($request->has('detalle')) {
+            DB::table('detalles')->where('order_id', $id)->delete();
+            
+            // Iterar sobre los detalles solo si están presentes en la solicitud
+            foreach ($request->input('detalle') as $detalle) {
+                DB::table('detalles')->insert([
+                    'order_id' => $id,
+                    'detalle' => $detalle,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+            }
+        }
+    
         DB::table('ordenes')->where('id', $id)->update([
             'patient_id' => $request->input('Rut')
         ]);
-
-        DB::table('detalles')->where('order_id', $id)->delete();
-        foreach ($request->input('detalle') as $detalle) {
-            DB::table('detalles')->insert([
-                'order_id' => $id,
-                'detalle' => $detalle,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
-        }
-
+    
         return redirect()->route('dashboard')->with('success', 'Orden actualizada correctamente.');
     }
 }

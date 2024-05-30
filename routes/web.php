@@ -8,6 +8,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\filesController;
 
 
+
 Route::get('/', function () {
     return view('index');
 })->name('index');
@@ -21,6 +22,12 @@ Route::middleware('auth')->group(function(){
     Route::post('/medic/panel/adjuntar_doc/store',[filesController::class, 'documentStore'])->name('medic/panel/adjuntar_doc/store');
 
     Route::get('/admin/panel',[AdminController::class, 'index'])->name('admin/panel');
+});
+
+Route::patch('/admin/orden/{id}', [AdminController::class, 'updateOrden'])->name('admin.updateOrden');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/file/download/{documento}', [filesController::class, 'downloadFile'])->name('file/download');
 });
 
 Route::middleware('auth')->group(function () {

@@ -1,5 +1,4 @@
 @extends('dashboard.admindash')
-
 @section('display')
 
 <div class="container mt-3">
@@ -15,7 +14,7 @@
                 <div class="card-body">
                     <button class="btn btn-primary" onclick="mostrarDetalles({{ $orden->id }})">Mostrar Detalles</button>
                     <button class="btn btn-primary" onclick="mostrarDocumentos({{ $orden->id }})">Mostrar Documentos</button>
-                    <button class="btn btn-secondary" onclick="editarOrden({{ $orden->id }})" data-bs-toggle="modal" data-bs-target="#editOrderModal">Editar Orden</button>
+                    <button class="btn btn-secondary" onclick="editarOrden({{ $orden->id }})" data-bs-toggle="modal" data-bs-target="#MyModal">Editar Orden</button>
                     <div id="detalles-{{ $orden->id }}" class="card-footer mb-3 mt-3" style="display: none;">
                         @php
                             $detalles = DB::table('detalles')->where('order_id', $orden->id)->get();
@@ -36,7 +35,11 @@
                     @if ($documentos->isNotEmpty())
                         <h3>Documentos</h3>
                         @foreach ($documentos as $documento)
-                            <p>- <a href="{{ asset('storage/' . $documento->archivo) }}" target="_blank">{{ $documento->archivo }}</a></p>
+                            <br>
+                            <p>{{ $documento->archivo }}</p>
+                            <p>Fecha y hora de subida: {{ $documento->created_at }}</p>
+                            <a href="{{ route('file/download', ['documento' => $documento->archivo]) }}" class="btn btn-primary">Descargar Archivo</a>
+                            <br>
                         @endforeach
                     @else
                         <p>No hay documentos asociados a esta orden.</p>
@@ -68,14 +71,14 @@
             <x-text-input id="editRut" class="form-control" type="text" name="Rut" :value="old('Rut')" />
             <x-input-error :messages="$errors->get('Rut')" class="mt-2" />
           </div>
+          <button type="button" class="add-btn btn btn-primary">Agregar detalle</button>
           <!-- detalles de la orden-->
           <div id="editDetallesContainer">
             <div class="detalle">
-              <label for="detail" class="form-label">Detalle de la orden</label>
-              <input type="text" name="detalle[]" class="form-control">
-              <button type="button" class="remove-btn btn btn-danger" style="display: none;">Eliminar detalle</button>
-              <br>
-              <button type="button" class="add-btn btn btn-primary">Agregar detalle</button>
+                <label for="detail" class="form-label">Detalle de la orden</label>
+                <input type="text" name="detalle[]" class="form-control" placeholder="Detalle de la orden">
+                <button type="button" class="remove-btn btn btn-danger" style="display: none;">Eliminar detalle</button>
+                <br>
             </div>
           </div>
           <br>
@@ -147,13 +150,25 @@ function validateForm() {
     const rutInput = document.getElementById('editRut');
     const rutValue = rutInput.value;
 
-    // se verifica si el RUT tiene 8 o 9 caracteres y contiene solo números
     if (rutValue.length < 8 || rutValue.length > 9 || !rutValue.match(/^\d+$/)) {
         alert("El Rut debe tener entre 8 y 9 caracteres y contener solo números");
         return false;
     }
 
-    // si pasa todas las validaciones se envia el formulario
+    // Verifica que al menos haya un detalle ingresado
+    const detalles = document.querySelectorAll('input[name="detalle[]"]');
+    let hasDetalle = false;
+    detalles.forEach(detalle => {
+        if (detalle.value.trim() !== '') {
+            hasDetalle = true;
+        }
+    });
+
+    if (!hasDetalle) {
+        alert("Debe ingresar al menos un detalle para la orden.");
+        return false;
+    }
+
     alert("Orden actualizada! Volviendo al dashboard.");
     document.getElementById('editOrderForm').submit();
 }
@@ -164,14 +179,16 @@ document.addEventListener('DOMContentLoaded', function () {
     detallesContainer.addEventListener('click', function (e) {
         if (e.target.classList.contains('remove-btn')) {
             e.target.closest('.detalle').remove();
-            checkButtons();
+            checkButtons(e.target.closest('.detalle'));
         }
     });
 
-    function checkButtons() {
-        const removeButtons = document.querySelectorAll('.remove-btn');
+    function checkButtons(detalle) {
+        const removeButton = detalle.querySelector('.remove-btn');
+        const removeButtons = detalle.parentNode.querySelectorAll('.remove-btn');
+
         removeButtons.forEach((button, index) => {
-            if (index === 0) {
+            if (button === removeButton) {
                 button.style.display = 'none';
             } else {
                 button.style.display = 'inline-block';
@@ -196,10 +213,8 @@ document.addEventListener('DOMContentLoaded', function () {
             </div>
         `;
         detallesContainer.appendChild(newDetalle);
-        checkButtons();
+        checkButtons(newDetalle);
     });
-
-    checkButtons();
 });
 </script>
 @endsection

@@ -32,7 +32,11 @@
         @if ($documentos->isNotEmpty())
             <h3>Documentos</h3>
             @foreach ($documentos as $documento)
-                <p>- {{ $documento->archivo }}</p>
+              <br>
+                <p>{{ $documento->archivo }}</p>
+                <p>Fecha y hora de subida: {{ $documento->created_at }}</p>
+                <a href="{{ route('file/download', ['documento' => $documento->archivo]) }}" class="btn btn-primary">Descargar Archivo</a>
+                <br>
                 {{-- Agrega aquí el código necesario para mostrar el documento o un enlace para descargarlo --}}
             @endforeach
         @else
