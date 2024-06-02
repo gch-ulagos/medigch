@@ -44,5 +44,13 @@ class DatabaseSeeder extends Seeder
             });
         }    
     }
+
+    public function search(Request $request)
+    {
+        $results = DB::table('ordenes')
+            ->where('id', 'LIKE', "%{$request->search}%")
+            ->get();
+        return view('orders.results', compact('results'))->with(['search' => $request->search])->render();
+    }
 }
    

@@ -20,4 +20,13 @@ class UserController extends Controller
             return view('dashboard.medicdash');
         }
     }
+
+    public function verificarRut(Request $request)
+    {
+        $rut = $request->input('Rut');
+
+        $exists = DB::table('users')->where('id', $rut)->exists();
+
+        return response()->json(['exists' => $exists]);
+    }   
 }

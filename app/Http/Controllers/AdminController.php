@@ -10,8 +10,10 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use App\Models\User;
-use App\Http\Controllers\Controller;
+use App\Models\examen;
+
 
 class AdminController extends Controller
 {
@@ -28,6 +30,25 @@ class AdminController extends Controller
         }elseif(Auth::user()->hasRole('medic')){
             return view('dashboard.medicdash');
         }
+    }
+
+    public function check($id)
+    {
+    $orderExists = DB::table('ordenes')->where('id', $id)->exists();
+
+    return response()->json(['found' => $orderExists]);
+    }
+
+    public function search(Request $request)
+    {
+        $orden = DB::table('ordenes')
+            ->where('id', 'LIKE', "%{$request->search}%")
+            ->first();
+
+        $detalles = DB::table('detalles')->where('order_id', 'LIKE', "%{$request->search}%")->get();
+
+        $documentos = DB::table('examens')->where('order_id', 'LIKE', "%{$request->search}%")->get();
+        return view('admin_views.modificarorden_id', compact('orden', 'detalles', 'documentos'));
     }
     
     public function crear_personal()
@@ -77,43 +98,74 @@ class AdminController extends Controller
         }
     }
 
-    public function ordenInfo($id)
+    public function ordenInfo(Request $request)
     {
-    $orden = DB::table('ordenes')->where('id', $id)->first();
-    $detalles = DB::table('detalles')->where('order_id', $id)->get();
-
-    return response()->json([
-        'patient_id' => $orden->patient_id,
-        'detalles' => $detalles
-    ]);
+        $this->getOrdenes();
+        $this->search($request);
     }
 
-    public function updateOrden(Request $request, $id)
+    public function updateOrden(Request $request)
     {
         $request->validate([
-            'Rut' => 'required|string|between:8,9',
-            'detalle.*' => 'string|max:100'
+            'Rut' => 'required|numeric|digits_between:8,9',
+            'detalle.*' => 'nullable|string|max:100',
+            'remove_document_ids' => 'array',
+            'remove_document_ids.*' => 'integer|exists:examens,id',
+            'archivo' => 'array',
+            'archivo.*' => 'file',
+            'order_id' => 'required|exists:ordenes,id'
         ]);
-    
-        // Verificar si hay detalles presentes en la solicitud
-        if ($request->has('detalle')) {
-            DB::table('detalles')->where('order_id', $id)->delete();
-            
-            // Iterar sobre los detalles solo si están presentes en la solicitud
-            foreach ($request->input('detalle') as $detalle) {
-                DB::table('detalles')->insert([
-                    'order_id' => $id,
-                    'detalle' => $detalle,
-                    'created_at' => now(),
-                    'updated_at' => now(),
-                ]);
+
+        $patientId = $request->input('Rut');
+        $orderId = $request->input('order_id');
+
+        DB::table('ordenes')
+            ->where('id', $orderId)
+            ->update(['patient_id' => $patientId]);
+
+        DB::table('detalles')->where('order_id', $orderId)->delete();
+
+        $detalles = $request->input('detalle');
+        if ($detalles && is_array($detalles)) {
+            foreach ($detalles as $detalle) {
+                if (!empty($detalle)) {
+                    DB::table('detalles')->insert([
+                        'order_id' => $orderId,
+                        'detalle' => $detalle,
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ]);
+                }
             }
         }
+
+        if ($request->hasFile('archivo')) {
+            foreach ($request->file('archivo') as $file) {
+                $fileName = time() . '_' . $file->getClientOriginalName();
+                $file->storeAs('pdfs', $fileName);
     
-        DB::table('ordenes')->where('id', $id)->update([
-            'patient_id' => $request->input('Rut')
-        ]);
+                $examen = new examen([
+                    'archivo' => $fileName,
+                ]);
     
-        return redirect()->route('dashboard')->with('success', 'Orden actualizada correctamente.');
+                $examen->order_id = $request->order_id;
+                $examen->save();
+            }
+        }
+
+        $removeDocumentIds = $request->input('remove_document_ids');
+        if ($removeDocumentIds && is_array($removeDocumentIds)) {
+            $documents = DB::table('examens')
+                ->whereIn('id', $removeDocumentIds)
+                ->get();
+
+            foreach ($documents as $document) {
+                Storage::delete('pdfs/' . $document->archivo);
+                DB::table('examens')->where('id', $document->id)->delete();
+            }
+        }
+
+        return redirect()->route('dashboard')->with('success', 'Orden actualizada exitosamente.');
     }
+
 }

@@ -24,8 +24,6 @@ Route::middleware('auth')->group(function(){
     Route::get('/admin/panel',[AdminController::class, 'index'])->name('admin/panel');
 });
 
-Route::patch('/admin/orden/{id}', [AdminController::class, 'updateOrden'])->name('admin.updateOrden');
-
 Route::middleware('auth')->group(function () {
     Route::get('/file/download/{documento}', [filesController::class, 'downloadFile'])->name('file/download');
 });
@@ -42,8 +40,10 @@ Route::middleware('auth')->group(function(){
     Route::get('/admin/crear_personal',[AdminController::class, 'crear_personal'])->name('/admin/crear_personal');
     Route::post('/admin/crear_personal',[AdminController::class, 'store'])->name('/admin/crear_personal/store');
     Route::get('/admin/modificar_orden',[AdminController::class, 'getOrdenes'])->name('/admin/modificar_ordenes');
-    Route::get('/api/ordenes/{id}', [AdminController::class, 'ordenInfo']);
-    Route::patch('/admin/orden/{id}/update', [AdminController::class, 'updateOrden'])->name('admin.modificar_ordenes.update');
+    Route::get('/admin/modificar_ordenes/check/{id}', [AdminController::class, 'check'])->name('admin.modificar_ordenes.check');
+    Route::get('/admin/modificar_ordenes/search/', [AdminController::class, 'search'])->name('admin.modificar_ordenes.search');
+    Route::post('/verificar_rut', 'UserController@verificarRut');
+    Route::patch('/admin/orden/update', [AdminController::class, 'updateOrden'])->name('admin.modificar_ordenes.updateOrden');
 });
 
 require __DIR__.'/auth.php';
