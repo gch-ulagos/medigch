@@ -45,8 +45,8 @@ class MedicController extends Controller
     public function ordenStore(Request $request){
         //validacion de los datos del formulario
         $request->validate([
-            'Rut' => 'required|string|between:8,9',
-            'detalle.*' => 'required|string|max:100',
+            'Rut' => 'required|numeric|digits_between:8,9|exists:users,id',
+            'detalle.*' => 'nullable|string|max:100',
         ]);
 
         //obtener el id del usuario medico autenticado
@@ -61,13 +61,18 @@ class MedicController extends Controller
         ]);
 
         //insertar los detalles
-        foreach ($request->input('detalle') as $detalle) {
-            DB::table('detalles')->insert([
-                'order_id' => $orden_id,
-                'detalle' => $detalle,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
+        $detalles = $request->input('detalle');
+        if ($detalles && is_array($detalles)) {
+            foreach ($detalles as $detalle) {
+                if (!empty($detalle)) {
+                    DB::table('detalles')->insert([
+                        'order_id' => $orden_id,
+                        'detalle' => $detalle,
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ]);
+                }
+            }
         }
 
         return redirect(route('dashboard', absolute: false));

@@ -19,38 +19,29 @@ class DatabaseSeeder extends Seeder
         if (!Schema::hasTable('ordenes')) {
             Schema::create('ordenes', function ($table) {
                 $table->bigIncrements('id');
-                $table->foreignId('patient_id')->constrained('users');
-                $table->foreignId('medic_id')->constrained('users');
+                $table->foreignId('patient_id')->constrained('users')->onDelete('cascade');
+                $table->foreignId('medic_id')->constrained('users')->onDelete('cascade');
                 $table->timestamps();
             });
         }
-
-
+        
         if (!Schema::hasTable('examens')) {
             Schema::create('examens', function ($table) {
                 $table->bigIncrements('id');
-                $table->foreignId('order_id')->constrained('ordenes');
+                $table->foreignId('order_id')->constrained('ordenes')->onDelete('cascade');
                 $table->string('archivo');
                 $table->timestamps();
             });
         }
-
+        
         if (!Schema::hasTable('detalles')) {
             Schema::create('detalles', function ($table) {
                 $table->bigIncrements('id');
-                $table->foreignId('order_id')->constrained('ordenes');
+                $table->foreignId('order_id')->constrained('ordenes')->onDelete('cascade');
                 $table->string('detalle', 100);
                 $table->timestamps();
             });
-        }    
-    }
-
-    public function search(Request $request)
-    {
-        $results = DB::table('ordenes')
-            ->where('id', 'LIKE', "%{$request->search}%")
-            ->get();
-        return view('orders.results', compact('results'))->with(['search' => $request->search])->render();
+        }         
     }
 }
    

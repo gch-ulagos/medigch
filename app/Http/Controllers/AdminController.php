@@ -32,12 +32,13 @@ class AdminController extends Controller
         }
     }
 
-    public function check($id)
+    public function checkOrden($id)
     {
     $orderExists = DB::table('ordenes')->where('id', $id)->exists();
 
     return response()->json(['found' => $orderExists]);
     }
+
 
     public function search(Request $request)
     {
