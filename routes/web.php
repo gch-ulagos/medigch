@@ -20,6 +20,10 @@ Route::middleware('auth')->group(function(){
     Route::post('/medic/panel/crear_orden/store',[MedicController::class, 'ordenStore'])->name('medic/panel/crear_orden/store');
     Route::get('/medic/panel/adjuntar_doc',[filesController::class, 'adjuntar_doc'])->name('medic/panel/adjuntar_doc');
     Route::post('/medic/panel/adjuntar_doc/store',[filesController::class, 'documentStore'])->name('medic/panel/adjuntar_doc/store');
+    Route::get('/medic/modificar_orden',[MedicController::class, 'getOrdenes'])->name('medic/modificar_ordenes');
+    Route::get('/medic/modificar_ordenes/search/', [MedicController::class, 'search'])->name('medic.modificar_ordenes.search');
+    Route::get('/medic/modificar_ordenes/check/{id}', [MedicController::class, 'checkOrden'])->name('medic.modificar_ordenes.check');
+    Route::patch('/medic/orden/update', [MedicController::class, 'updateOrden'])->name('medic.modificar_ordenes.updateOrden');
 
     Route::get('/admin/panel',[AdminController::class, 'index'])->name('admin/panel');
 });
@@ -31,7 +35,7 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('/user/panel',[UserController::class, 'index'])->name('user/panel');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 

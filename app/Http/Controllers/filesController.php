@@ -17,7 +17,11 @@ class filesController extends Controller
         } elseif (Auth::user()->hasRole('admin')) {
             return view('dashboard.admindash');
         } elseif (Auth::user()->hasRole('medic')) {
-            $ordenes = DB::table('ordenes')->paginate(5);
+            $medic_id = Auth::id();
+
+            $ordenes = DB::table('ordenes')
+            ->where('medic_id', $medic_id)
+            ->paginate(5);
             return view(('medic_views.subir_archivo'), compact('ordenes'));
         }
     }

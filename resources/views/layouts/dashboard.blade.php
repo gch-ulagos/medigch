@@ -15,7 +15,7 @@
       <a href="/dashboard"><img src="{{ URL::asset('images/MediGCH.png') }}" alt="Logo"></a>
         <nav>
             <ul>
-                <li><a href="#">Mi Perfil</a></li>
+                <li><a href="{{ route('profile.edit') }}">Mi Perfil</a></li>
                 <form method="POST" action="{{ route('logout') }}" id="logoutButton">
                   @csrf
                     <a class="nav-link active"><input type="submit" class="btn btn-danger btn-sm" id="logoutButton" value="Desconectarse"></a>

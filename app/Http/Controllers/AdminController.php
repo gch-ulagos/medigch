@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use App\Models\User;
 use App\Models\examen;
+use App\Rules\ValidRut;
 
 
 class AdminController extends Controller
@@ -68,12 +69,14 @@ class AdminController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
+            'Rut' => ['required', new ValidRut, 'string','between:8,9'],
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
         $user = User::create([
+            'id' => $request->Rut,
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),

@@ -6,6 +6,15 @@
             <h1>Crear Personal</h1>
             <form method="POST" action="/admin/crear_personal">
             @csrf
+
+            <!-- Rut -->
+            <div>
+                <x-input-label for="Rut" :value="__('Rut')" />
+                <x-text-input id="Rut" class="block mt-1 w-full" type="text" name="Rut" :value="old('Rut')" required autofocus autocomplete="Rut" />
+                <x-input-error :messages="$errors->get('Rut')" class="mt-2" />
+                <p class="text-sm text-gray-500">Sin puntos y sin guión, si su rut termina en K, reemplacelo por un 0</p> <!-- Texto adicional -->
+            </div>
+
             <!-- Nombre -->
             <div class="mb-3 mt-3">
                 <x-input-label for="name" :value="__('Nombre')" />

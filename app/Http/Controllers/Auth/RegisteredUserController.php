@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use App\Rules\ValidRut;
 
 class RegisteredUserController extends Controller
 {
@@ -32,14 +33,10 @@ class RegisteredUserController extends Controller
         $request->validate([
             'id' => [
                 'required',
+                new ValidRut,
                 'string',
-                'max:255',
-                'between:8,9',
-                function ($attribute, $value, $fail) {
-                    if (!preg_match('/^[0-9]+$/', $value)) {
-                        $fail('El Rut solo puede contener números.');
-                    }
-                }],
+                'between:8,9'
+                ],
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],

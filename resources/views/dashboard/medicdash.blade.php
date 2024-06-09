@@ -13,7 +13,7 @@
     </div>
 
     <div id="verHistorial" class="frame btn btn-primary">
-      <a href=# class="button big">Ver historial de órdenes</a>
+      <a href="{{ route('medic/modificar_ordenes') }}" class="button big">Modificar órdenes</a>
     </div>
    </div>
 @endsection
