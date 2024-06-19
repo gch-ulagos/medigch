@@ -12,7 +12,7 @@
                 <x-input-label for="Rut" :value="__('Rut')" />
                 <x-text-input id="Rut" class="block mt-1 w-full" type="text" name="Rut" :value="old('Rut')" required autofocus autocomplete="Rut" />
                 <x-input-error :messages="$errors->get('Rut')" class="mt-2" />
-                <p class="text-sm text-gray-500">Sin puntos y sin guión, si su rut termina en K, reemplacelo por un 0</p> <!-- Texto adicional -->
+                <p class="text-sm text-gray-500">Sin puntos y sin guión, si su Rut termina en K, reemplácelo por un 0</p> <!-- Texto adicional -->
             </div>
 
             <!-- Nombre -->

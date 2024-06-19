@@ -3,7 +3,7 @@
 @section('display')
 
 <div class="container mt-3">
-    <h1>Ingresar Orden Medica</h1>
+    <h1>Ingresar Orden Médica</h1>
     <form method="POST" action="{{ route('medic/panel/crear_orden/store') }}">
         @csrf
         <!-- rut del paciente-->
