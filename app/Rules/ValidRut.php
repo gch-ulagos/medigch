@@ -16,6 +16,10 @@ class ValidRut implements Rule
             return false;
         }
 
+        if (preg_match('/^(\d)\1+$/', $rutSinDigitoVerificador)) {
+            return false;
+        }
+
         $rutInvertido = strrev($rutSinDigitoVerificador);
 
         $multiplicadores = [2, 3, 4, 5, 6, 7, 2, 3];

@@ -21,9 +21,9 @@
                     <p><b>RUT del Paciente:</b> {{ $orden->patient_id }}</p>
                 </div>
                 <div class="card-body">
-                    <button class="btn btn-primary" onclick="mostrarDetalles({{ $orden->id }})">Mostrar Detalles</button>
-                    <button class="btn btn-primary" onclick="mostrarDocumentos({{ $orden->id }})">Mostrar Documentos</button>
-                    <a class="btn btn-secondary" href="/admin/modificar_ordenes/search/">Editar Orden</a>
+                    <button class="btn btn-primary" onclick="mostrarDetalles({{ $orden->id }})">Mostrar detalles</button>
+                    <button class="btn btn-primary" onclick="mostrarDocumentos({{ $orden->id }})">Mostrar documentos</button>
+                    <a class="btn btn-secondary" href="/admin/modificar_ordenes/search/">Editar orden</a>
                     <div id="detalles-{{ $orden->id }}" class="card-footer mb-3 mt-3" style="display: none;">
                         @php
                             $detalles = DB::table('detalles')->where('order_id', $orden->id)->get();
@@ -47,7 +47,7 @@
                             <br>
                             <p>{{ $documento->archivo }}</p>
                             <p>Fecha y hora de subida: {{ $documento->created_at }}</p>
-                            <a href="{{ route('file/download', ['documento' => $documento->archivo]) }}" class="btn btn-primary">Descargar Archivo</a>
+                            <a href="{{ route('file/download', ['documento' => $documento->archivo]) }}" class="btn btn-primary">Descargar archivo</a>
                             <br>
                         @endforeach
                     @else
