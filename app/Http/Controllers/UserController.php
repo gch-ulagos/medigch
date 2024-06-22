@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -37,7 +39,7 @@ class UserController extends Controller
         if (Auth::user()->hasRole('user')) {
             $ordenes = DB::table('ordenes')
                 ->orderBy('created_at', 'desc')
-                ->where('user', $user_id)
+                ->where('patient_id', $user_id)
                 ->take(5)
                 ->get();
             return view(('user_views.historial_documentos'), compact('ordenes'));

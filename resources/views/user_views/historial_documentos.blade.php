@@ -1,9 +1,7 @@
-@extends('layouts.userdash')
+@extends('dashboard.userdash')
 
 @section('display')
 
-    <h2> Historial de documentos </h2>
-    <p> Revisa y descarga tus documentos</p>
     <div class="container mt-3">
         <h1>Buscar orden directamente</h1>
         <form id="search-form" action="{{ route('medic.modificar_ordenes.search') }}" method="GET">
@@ -22,7 +20,7 @@
                         <p><b>Orden Nº</b> {{ $orden->id }}</p>
                         <p><b>RUT del Paciente:</b> {{ $orden->patient_id }}</p>
                     </div>
-                    <div id="examens-{{ $orden->id }}" class="card-body" style="display: none;">
+                    <div id="examens-{{ $orden->id }}" class="card-body">
                         @php
                             $documentos = DB::table('examens')->where('order_id', $orden->id)->get();
                         @endphp
