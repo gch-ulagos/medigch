@@ -1,5 +1,4 @@
 <div class="ordenes">
-  <h2>Órdenes médicas recientes</h2>
  @foreach ($ordenes as $orden) 
   <div class="d-flex flex-column mt-3 mb-3 align-items-center">
     <div class="card" style="width:400px">

@@ -35,6 +35,7 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/user/panel',[UserController::class, 'index'])->name('user/panel');
+    Route::get('/user/documentos/search/', [UserController::class, 'search'])->name('user/documentos/search');
     Route::get('/user/documentos',[UserController::class, 'showAllDocuments'])->name('user/documentos');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');

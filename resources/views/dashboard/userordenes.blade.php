@@ -14,5 +14,5 @@
 @endsection
 
 @section('display')
-   @include('layouts.ordenes_dash')
+@include('layouts.ordenes_dash')
 @endsection

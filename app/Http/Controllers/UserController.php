@@ -49,4 +49,23 @@ class UserController extends Controller
             return view('dashboard.medicdash');
         }
     }
+
+    public function search(Request $request)
+    {
+        $query = $request->get('q');
+        $user_id = Auth::id();
+
+        $orders = DB::table('ordenes')
+            ->where('patient_id', $user_id)
+            ->where(function($queryBuilder) use ($query) {
+                $queryBuilder->where('id', 'LIKE', "%{$query}%");
+            })
+            ->get();
+
+        foreach ($orders as $order) {
+            $order->examens = DB::table('examens')->where('order_id', $order->id)->get();
+        }
+
+        return response()->json($orders);
+    }
 }
