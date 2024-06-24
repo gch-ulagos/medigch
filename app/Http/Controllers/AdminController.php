@@ -45,6 +45,7 @@ class AdminController extends Controller
     {
         $orden = DB::table('ordenes')
             ->where('id', 'LIKE', "%{$request->search}%")
+            ->orWhere('patient_id', 'LIKE', "%{$request->search}%")
             ->first();
 
         $detalles = DB::table('detalles')->where('order_id', 'LIKE', "%{$request->search}%")->get();
@@ -102,10 +103,18 @@ class AdminController extends Controller
         }
     }
 
-    public function ordenInfo(Request $request)
+    public function ordenInfo($id)
     {
-        $this->getOrdenes();
-        $this->search($request);
+        $orden = DB::table('ordenes')->where('id', $id)->first();
+
+        if (!$orden) {
+            return redirect()->route('admin.modificar_ordenes')->with('error', 'Orden no encontrada');
+        }
+
+        $detalles = DB::table('detalles')->where('order_id', $id)->get();
+        $documentos = DB::table('examens')->where('order_id', $id)->get();
+
+        return view('admin_views.modificarorden_id', compact('orden', 'detalles', 'documentos'));
     }
 
     public function updateOrden(Request $request)

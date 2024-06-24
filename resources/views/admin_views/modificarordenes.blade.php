@@ -22,7 +22,7 @@
                 <div class="card-body">
                     <button class="btn btn-primary" onclick="mostrarDetalles({{ $orden->id }})">Mostrar Detalles</button>
                     <button class="btn btn-primary" onclick="mostrarDocumentos({{ $orden->id }})">Mostrar Documentos</button>
-                    <a class="btn btn-secondary" href="/admin/modificar_ordenes/search/">Editar Orden</a>
+                    <a class="btn btn-secondary" href="{{ route('admin.modificar_ordenes.ordenInfo', ['id' => $orden->id]) }}">Editar Orden</a>
                     <div id="detalles-{{ $orden->id }}" class="card-footer mb-3 mt-3" style="display: none;">
                         @php
                             $detalles = DB::table('detalles')->where('order_id', $orden->id)->get();
@@ -78,7 +78,7 @@
         const orderIdInput = document.getElementById('order-id-input');
 
         searchForm.addEventListener('submit', function (event) {
-            event.preventDefault(); // Prevenir el envío del formulario
+            event.preventDefault();
 
             const orderId = orderIdInput.value.trim();
 
@@ -86,7 +86,7 @@
                 .then(response => response.json())
                 .then(data => {
                     if (data.found) {
-                        searchForm.submit(); // Enviar el formulario después de confirmar que la orden existe
+                        searchForm.submit();
                     } else {
                         alert("Orden no encontrada, introduzca una orden válida");
                     }

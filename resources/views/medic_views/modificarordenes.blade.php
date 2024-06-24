@@ -23,7 +23,7 @@
                 <div class="card-body">
                     <button class="btn btn-primary" onclick="mostrarDetalles({{ $orden->id }})">Mostrar detalles</button>
                     <button class="btn btn-primary" onclick="mostrarDocumentos({{ $orden->id }})">Mostrar documentos</button>
-                    <a class="btn btn-secondary" href="/admin/modificar_ordenes/search/">Editar orden</a>
+                    <a class="btn btn-secondary" href="{{ route('admin.modificar_ordenes.ordenInfo', ['id' => $orden->id]) }}">Editar orden</a>
                     <div id="detalles-{{ $orden->id }}" class="card-footer mb-3 mt-3" style="display: none;">
                         @php
                             $detalles = DB::table('detalles')->where('order_id', $orden->id)->get();

@@ -49,6 +49,7 @@ Route::middleware('auth')->group(function(){
     Route::get('/admin/modificar_orden',[AdminController::class, 'getOrdenes'])->name('/admin/modificar_ordenes');
     Route::get('/admin/modificar_ordenes/check/{id}', [AdminController::class, 'checkOrden'])->name('admin.modificar_ordenes.check');
     Route::get('/admin/modificar_ordenes/search/', [AdminController::class, 'search'])->name('admin.modificar_ordenes.search');
+    Route::get('/admin/modificar_ordenes/ordenInfo/{id}', [AdminController::class, 'ordenInfo'])->name('admin.modificar_ordenes.ordenInfo');
     Route::patch('/admin/orden/update', [AdminController::class, 'updateOrden'])->name('admin.modificar_ordenes.updateOrden');
 });
 
