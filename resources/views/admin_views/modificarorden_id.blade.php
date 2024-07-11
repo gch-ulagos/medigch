@@ -3,7 +3,7 @@
 @section('display')
 
 <div class="container mt-3">
-    <h1>Editar Orden Médica</h1>
+    <h1>Editar orden médica</h1>
     <form method="POST" action="{{ route('admin.modificar_ordenes.updateOrden') }}" enctype="multipart/form-data">
         @csrf
         @method('PATCH')

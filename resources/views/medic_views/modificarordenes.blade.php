@@ -18,7 +18,7 @@
             <div class="orden">
                 <div class="card-header">
                     <p><b>Orden Nº</b> {{ $orden->id }}</p>
-                    <p><b>RUT del Paciente:</b> {{ $orden->patient_id }}</p>
+                    <p><b>RUT del paciente:</b> {{ $orden->patient_id }}</p>
                 </div>
                 <div class="card-body">
                     <button class="btn btn-primary" onclick="mostrarDetalles({{ $orden->id }})">Mostrar detalles</button>

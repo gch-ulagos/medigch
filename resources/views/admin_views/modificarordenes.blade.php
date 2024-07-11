@@ -10,19 +10,19 @@
 </div>
 
 <div class="container mt-3">
-    <h2>Órdenes Médicas Recientes</h2>
+    <h2>Órdenes médicas recientes</h2>
     <div class="d-flex flex-column mt-3 mb-3 align-items-center">
         @foreach ($ordenes as $orden)
         <div class="card" style="width:400px">
             <div class="orden">
                 <div class="card-header">
                     <p><b>Orden Nº</b> {{ $orden->id }}</p>
-                    <p><b>RUT del Paciente:</b> {{ $orden->patient_id }}</p>
+                    <p><b>RUT del paciente:</b> {{ $orden->patient_id }}</p>
                 </div>
                 <div class="card-body">
-                    <button class="btn btn-primary" onclick="mostrarDetalles({{ $orden->id }})">Mostrar Detalles</button>
-                    <button class="btn btn-primary" onclick="mostrarDocumentos({{ $orden->id }})">Mostrar Documentos</button>
-                    <a class="btn btn-secondary" href="{{ route('admin.modificar_ordenes.ordenInfo', ['id' => $orden->id]) }}">Editar Orden</a>
+                    <button class="btn btn-primary" onclick="mostrarDetalles({{ $orden->id }})">Mostrar detalles</button>
+                    <button class="btn btn-primary" onclick="mostrarDocumentos({{ $orden->id }})">Mostrar documentos</button>
+                    <a class="btn btn-secondary" href="{{ route('admin.modificar_ordenes.ordenInfo', ['id' => $orden->id]) }}">Editar orden</a>
                     <div id="detalles-{{ $orden->id }}" class="card-footer mb-3 mt-3" style="display: none;">
                         @php
                             $detalles = DB::table('detalles')->where('order_id', $orden->id)->get();
@@ -46,7 +46,7 @@
                             <br>
                             <p>{{ $documento->archivo }}</p>
                             <p>Fecha y hora de subida: {{ $documento->created_at }}</p>
-                            <a href="{{ route('file/download', ['documento' => $documento->archivo]) }}" class="btn btn-primary">Descargar Archivo</a>
+                            <a href="{{ route('file/download', ['documento' => $documento->archivo]) }}" class="btn btn-primary">Descargar archivo</a>
                             <br>
                         @endforeach
                     @else

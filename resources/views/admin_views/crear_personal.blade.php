@@ -3,7 +3,7 @@
 @section('display')
         
         <div class="container mt-3">
-            <h1>Crear Personal</h1>
+            <h1>Crear personal</h1>
             <form method="POST" action="/admin/crear_personal">
             @csrf
 

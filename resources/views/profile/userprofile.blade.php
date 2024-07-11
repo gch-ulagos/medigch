@@ -8,16 +8,10 @@
         <form method="POST" action="{{ route('profile.update') }}">
             @csrf
             @method('PUT')
-    
-            <!-- Nombre -->
-            <div class="form-group">
-                <label for="name">Nombre</label>
-                <input type="text" name="name" id="name" value="{{ old('name', $user->name) }}" class="form-control" readonly>
-            </div>
 
             <!-- Correo -->    
             <div class="form-group">
-                <label for="email">Correo Electrónico</label>
+                <label for="email">Correo electrónico</label>
                 <input type="email" name="email" id="email" value="{{ old('email', $user->email) }}" class="form-control">
                 @error('email')
                  <div class="alert alert-danger">{{ $message }}</div>
